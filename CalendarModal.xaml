@@ -1,0 +1,33 @@
+﻿<Window x:Class="EDSLGUI.CalendarModal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EDSLGUI"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="CalendarModal" Height="450" Width="800">
+    <Grid>
+        <Viewbox HorizontalAlignment="Left" Height="300" Margin="20,0,0,0">
+            <Calendar Name="cal" SelectionMode="MultipleRange">
+                <Calendar.SelectedDates></Calendar.SelectedDates>
+            </Calendar>
+
+        </Viewbox>
+        <ListView Name="setupseasonlv" Margin="0,0,20,0" HorizontalAlignment="Right" Height="200" Width="330" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Round" DisplayMemberBinding="{Binding RoundDate}"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn Header="Round" DisplayMemberBinding="{Binding Round}"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding RoundNumber}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+        <Button Height="20" Width="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click">Confirm</Button>
+
+        
+    </Grid>
+</Window>
