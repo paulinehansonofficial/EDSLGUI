@@ -23,19 +23,34 @@ namespace EDSLGUI
         public MainWindow()
         {
             InitializeComponent();
-
-
         }
 
-        public void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void Create_Button_Click(object sender, RoutedEventArgs e)
         {
-            
 
-        }
+            int rounds = string.IsNullOrEmpty(Rounds_Input.Text) ? 0 : int.Parse(Rounds_Input.Text);
+            DateTime? date = Start_Date_Picker.SelectedDate;
+            DateTime newDate = DateTime.Now;
 
-        public void Button_Click(object sender, RoutedEventArgs e)
-        {
-            CalendarModal cm = new CalendarModal();
+            if (date == null)
+            {
+                throw new Exception();
+            }
+
+            else
+            {
+                newDate = date.Value;
+            }
+
+            Season season = new Season(rounds, newDate);
+            List<Round> displayRounds = new List<Round>();
+            foreach (var item in season.AllRounds)
+            {
+                displayRounds.Add(item);
+                
+            }
+
+            CalendarModal cm = new CalendarModal(displayRounds);
             cm.Show();
         }
     }

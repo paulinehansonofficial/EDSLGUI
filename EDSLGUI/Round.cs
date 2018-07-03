@@ -8,12 +8,20 @@ namespace EDSLGUI
 {
     public class Round
     {
-        int RoundNumber;
-        DateTime RoundDate;
+        public int Season { get; set; }
+        public int RoundNumber { get; set; }
+        public DateTime RoundDate { get; set; }
+        List<Game> games { get; set; }
 
         public Round(int roundNumber, DateTime roundDate) {
             RoundNumber = roundNumber;
             RoundDate = roundDate;
+            List<Game> games = new List<Game>();
+        }
+
+        public void PopulateRound(char div, int year)
+        {
+
         }
 
     }

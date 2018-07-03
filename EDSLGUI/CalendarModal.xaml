@@ -14,17 +14,14 @@
             </Calendar>
 
         </Viewbox>
-        <ListView Name="setupseasonlv" Margin="0,0,20,0" HorizontalAlignment="Right" Height="200" Width="330" >
+        <ListView Name="Season_LV" Margin="0,0,20,0" HorizontalAlignment="Right" Height="200" Width="330" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Round" DisplayMemberBinding="{Binding RoundDate}"/>
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}"/>
-                    <GridViewColumn Header="Round" DisplayMemberBinding="{Binding Round}"/>
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding RoundNumber}"/>
+                    <GridViewColumn Header="Round" DisplayMemberBinding="{Binding RoundNumber}"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding RoundDate, StringFormat=D}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-
 
         <Button Height="20" Width="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click">Confirm</Button>
 

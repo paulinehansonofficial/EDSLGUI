@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using EDSLGUI;
 
 namespace EDSLGUI
 {
@@ -19,38 +20,29 @@ namespace EDSLGUI
     /// </summary>
     public partial class CalendarModal : Window
     {
-        public CalendarModal()
+        public CalendarModal(List<Round> displayRound)
         {
             InitializeComponent();
-            GetRoundDates(16, new DateTime(2018, 11, 3));
-            cal.DisplayDate = new DateTime(2018, 11, 3);
+            Season_LV.ItemsSource = displayRound;
+
+            PDFWriter writer = new PDFWriter();
+            string toWrite = "";
+            foreach (var item in displayRound)
+            {
+               string RoundNumber = item.RoundNumber.ToString();
+               string RoundDate = item.RoundDate.ToShortDateString();
+                cal.SelectedDates.Add(item.RoundDate);
+
+                toWrite += "Round: "+ RoundNumber + " Date: " + RoundDate + "\n";
+            }
+            writer.Write(toWrite);
+
         }
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
-
-        public List<Round> GetRoundDates(int rounds, DateTime startDate)
-        {
-            List<Round> printRounds = new List<Round>();
-
-            for (int count = 1; count == rounds; count++)
-            {
-                cal.SelectedDates.Add(startDate);
-                Round round = new Round(count, startDate);
-                printRounds.Add(round);
-                startDate = startDate.AddDays(7);
-            }
-            setupseasonlv.ItemsSource = printRounds;
-            return printRounds;
-            
-        }
-
-
-
-        
         
     }
 
