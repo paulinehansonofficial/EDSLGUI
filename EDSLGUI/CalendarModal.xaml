@@ -22,6 +22,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBox Name="testtext" Height="20" Width="90" Text=" ">
+        </TextBox>
 
         <Button Height="20" Width="60" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Button_Click">Confirm</Button>
 

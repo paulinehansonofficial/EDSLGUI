@@ -41,9 +41,22 @@ namespace EDSLGUI
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DateTime blackoutDate;
+            //testtext.Text = Season_LV.SelectedItems.ToString();
+            //testtext.Text = Season_LV.SelectedValue.ToString();
+
+            Round round = Season_LV.SelectedValue as Round;
+            testtext.Text = round.RoundDate.ToString();
+
+           
+
+            //object obj = Season_LV.SelectedValue.GetType();
+
+
+
+            //this.Close();
         }
-        
+
     }
 
 }

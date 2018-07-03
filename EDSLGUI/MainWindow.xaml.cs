@@ -42,7 +42,7 @@ namespace EDSLGUI
                 newDate = date.Value;
             }
 
-            Season season = new Season(rounds, newDate);
+            Season season = new Season(rounds, newDate, null);
             List<Round> displayRounds = new List<Round>();
             foreach (var item in season.AllRounds)
             {
