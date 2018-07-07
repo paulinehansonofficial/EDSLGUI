@@ -20,43 +20,51 @@ namespace EDSLGUI
     /// </summary>
     public partial class CalendarModal : Window
     {
-        public CalendarModal(List<Round> displayRound)
+        public Season season;
+        public CalendarModal(Season pseason)
         {
             InitializeComponent();
-            Season_LV.ItemsSource = displayRound;
-
-            PDFWriter writer = new PDFWriter();
-            string toWrite = "";
-            foreach (var item in displayRound)
-            {
-               string RoundNumber = item.RoundNumber.ToString();
-               string RoundDate = item.RoundDate.ToShortDateString();
-                cal.SelectedDates.Add(item.RoundDate);
-
-                toWrite += "Round: "+ RoundNumber + " Date: " + RoundDate + "\n";
-            }
-            writer.Write(toWrite);
-
+            season = pseason;
+            Season_LV.ItemsSource = pseason.AllRounds;
         }
 
-        public void Button_Click(object sender, RoutedEventArgs e)
+        public void Blackout_Click(object sender, RoutedEventArgs e)
         {
             DateTime blackoutDate;
             //testtext.Text = Season_LV.SelectedItems.ToString();
             //testtext.Text = Season_LV.SelectedValue.ToString();
 
             Round round = Season_LV.SelectedValue as Round;
-            testtext.Text = round.RoundDate.ToString();
+            blackoutDate = round.RoundDate;
 
-           
+            season =  season.RescheduleApplyBlackout(season, blackoutDate);
+
+            Season_LV.ItemsSource = season.AllRounds;
+            Blackout_LV.ItemsSource = season.Blackout;
+            Season_LV.Items.Refresh();
+            Blackout_LV.Items.Refresh();
 
             //object obj = Season_LV.SelectedValue.GetType();
-
-
-
-            //this.Close();
         }
 
+        public void PDF_Click(Season pseason)
+        {
+            PDFWriter writer = new PDFWriter();
+            string toWrite = "";
+            foreach (var item in pseason.AllRounds)
+            {
+                string RoundNumber = item.RoundNumber.ToString();
+                string RoundDate = item.RoundDate.ToShortDateString();
+
+                toWrite += "Round: " + RoundNumber + " Date: " + RoundDate + "\n";
+            }
+            writer.Write(toWrite);
+        }
+
+        public void Confirm_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 
 }

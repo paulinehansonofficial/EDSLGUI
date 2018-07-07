@@ -42,15 +42,9 @@ namespace EDSLGUI
                 newDate = date.Value;
             }
 
-            Season season = new Season(rounds, newDate, null);
-            List<Round> displayRounds = new List<Round>();
-            foreach (var item in season.AllRounds)
-            {
-                displayRounds.Add(item);
-                
-            }
+            Season season = new Season(rounds, newDate);
 
-            CalendarModal cm = new CalendarModal(displayRounds);
+            CalendarModal cm = new CalendarModal(season);
             cm.Show();
         }
     }

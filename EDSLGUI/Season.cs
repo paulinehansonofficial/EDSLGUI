@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace EDSLGUI
 {
-    class Season
+    public class Season
     {
-        DateTime[] Blackout { get; set; }
-        int NumRounds { get; set; }
+        public List<DateTime> Blackout { get; set; }
+        public int NumRounds { get; set; }
         public List<Round> AllRounds { get; set; }
         public DateTime StartDate { get; set; }
 
         public Season(int rounds, DateTime startDate)
         {
+
             NumRounds = rounds;
             StartDate = startDate;
+            Blackout = new List<DateTime>();
 
             List<Round> listRounds = new List<Round>();
             for (int i = 0; i < rounds; i++)
@@ -27,33 +29,33 @@ namespace EDSLGUI
             }
 
             AllRounds = listRounds;
-
         }
 
-        // this underneath probably shouldn't be an overloaded constructor
-        public Season(int rounds, DateTime date, DateTime[] blackout)
+        public Season RescheduleApplyBlackout(Season pseason, DateTime blackout)
         {
-            Blackout = blackout;
-            NumRounds = rounds;
+            Season season = new Season(pseason.AllRounds.Count, pseason.StartDate);
+            season.Blackout = pseason.Blackout;
+            season.Blackout.Add(blackout);
+            List<Round> rescheduledRounds = new List<Round>();
+            DateTime date = pseason.StartDate;
 
-            List<Round> listRounds = new List<Round>();
-            for (int i = 0; i < rounds; i++)
+            while (rescheduledRounds.Count < AllRounds.Count)
             {
-
-                if (blackout.Contains<DateTime>(date) )
+                Round round = new Round(rescheduledRounds.Count + 1, date);
+                if (season.Blackout.Contains(date))
                 {
                     date = date.AddDays(7);
                 }
-
-                //var itemExists = Array.Contains(blackout, date);
-
-                Round round = new Round(i + 1, date);
-                listRounds.Add(round);
-                date = date.AddDays(7);
+                else
+                {
+                    rescheduledRounds.Add(round);
+                    date = date.AddDays(7);
+                }
             }
 
-            AllRounds = listRounds;
-
+            season.AllRounds = rescheduledRounds;
+            return season;
         }
+
     }
 }
